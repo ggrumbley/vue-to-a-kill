@@ -15,12 +15,17 @@
       .blue {
         background-color: lightskyblue;
       }
+      .user {
+        border: 1px solid #ccc;
+        background-color: white;
+        padding: 10px;
+      }
     </style>
   </head>
   <body>
     <nav class="navbar navbar-default navbar-static-top">
       <div class="container">
-        <a href="" class="navbar-brand">Vue.js Series | Videos 1-6</a>
+        <a href="" class="navbar-brand">Vue.js Series | Videos 1-7</a>
       </div>
     </nav>
     <div class="container">
@@ -140,6 +145,25 @@
             </div>
           </div>
       </div>
+
+      <div class="row">
+        <div class="col-md-4">
+          <div class="panel panel-success">
+            <div class="panel-heading">
+              <h3 class="panel-title">Video 07: Components</h3>
+            </div>
+            <div class="panel-body">
+
+              <div id="app-7">
+                <p>{{ title }}</p>
+                <hr>
+                <app-user></app-user>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
 
@@ -227,7 +251,34 @@
             return value.toLowerCase();
           }
         }
-      })
+      });
+
+      Vue.component('app-user', {
+        data: function() {
+          return {
+            users: [
+              { username: 'Gary' },
+              { username: 'Pippa' },
+              { username: 'Georgie' },
+              { username: 'Maisie' }
+            ]
+          };
+        },
+        template: `
+          <div>
+            <div class="user" v-for="user in users">
+              <p>Username: {{ user.username }}</p>
+            </div>
+          </div>
+        `
+      });
+
+      const app7 = new Vue({
+        el: '#app-7',
+        data: {
+          title: 'Hello Users!'
+        }
+      });
     </script>
   </body>
 </html>
