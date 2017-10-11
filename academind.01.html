@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Academind Vue 01</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/yeti/bootstrap.min.css" rel="stylesheet" integrity="sha384-HzUaiJdCTIY/RL2vDPRGdEQHHahjzwoJJzGUkYjHVzTwXFQ2QN/nVgX7tzoMW3Ov" crossorigin="anonymous">
+    <style>
+      .olive {
+        background-color: olive;
+      }
+      .red {
+        background-color: red;
+      }
+      .blue {
+        background-color: lightskyblue;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-static-top">
+      <div class="container">
+        <a href="" class="navbar-brand">Vue.js Series | Videos 1-6</a>
+      </div>
+    </nav>
+    <div class="container">
+      <div class="row">
+
+        <div class="col-md-4">
+          <div class="panel panel-success">
+            <div class="panel-heading">
+              <h3 class="panel-title">Video 01: Getting Started</h3>
+            </div>
+            <div class="panel-body">
+
+              <div id="app-1">
+                <p>{{ title }}</p>
+                <hr>
+                <p>{{ title }}</p>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="panel panel-success">
+            <div class="panel-heading">
+              <h3 class="panel-title">Video 02: Events & Methods</h3>
+            </div>
+            <div class="panel-body">
+
+              <div id="app-2">
+                <button @click="changeTitle">Change Title</button>
+                <hr>
+                <p>{{ title }}</p>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="panel panel-success">
+            <div class="panel-heading">
+              <h3 class="panel-title">Video 03: Binding HTML Attributes</h3>
+            </div>
+            <div class="panel-body">
+
+              <div id="app-3">
+                <input type="text" @input="cssClass = $event.target.value">
+                <hr>
+                <p :class="cssClass">Class: {{ cssClass }}</p>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+
+
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+            <div class="panel panel-success">
+              <div class="panel-heading">
+                <h3 class="panel-title">Video 04: Computed Properties</h3>
+              </div>
+              <div class="panel-body">
+
+                <div id="app-4">
+                  <button @click="increment">Increment</button>
+                  <hr>
+                  <p>Counter: {{ counter }}</p>
+                  <p>Clicks: {{ clicks }}</p>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="panel panel-success">
+              <div class="panel-heading">
+                <h3 class="panel-title">Video 05: Conditionals & Lists</h3>
+              </div>
+              <div class="panel-body">
+
+                <div id="app-5">
+                  <button @click="show = !show">Show / Hide</button>
+                  <hr>
+                  <p v-if="show">I'm part-time visible!</p>
+                  <p v-else>Am I visible?</p>
+                  <hr>
+                  <ul>
+                    <li v-for="(person, index) in persons"> {{ index }} | {{ person.name }} - Age: {{ person.age }}</li>
+                  </ul>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="panel panel-success">
+              <div class="panel-heading">
+                <h3 class="panel-title">Video 06: Filters</h3>
+              </div>
+              <div class="panel-body">
+
+                <div id="app-6">
+                  <p>{{ title | uppercase }}</p>
+                  <hr>
+                  <p>{{ theTitle }}</p>
+                  <hr>
+                  <p>{{ title | lowercase }}</p>
+                </div>
+
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+
+
+    <!-- JAVASCRIPTS!!!! -->
+    <script src="https://unpkg.com/vue"></script>
+    <script>
+      const app1 = new Vue({
+        el: '#app-1',
+        data: {
+          title: 'Hello World!'
+        }
+      });
+
+      const app2 = new Vue({
+        el: '#app-2',
+        data: {
+          title: 'Hello World!',
+          changed: false
+        },
+        methods: {
+          changeTitle() {
+            this.changed = !this.changed
+            if (!this.changed) {
+              this.title = 'Hello World!'
+            } else {
+              this.title = 'Changed Title';
+            }
+          }
+        }
+      });
+
+      const app3 = new Vue({
+        el: '#app-3',
+        data: {
+          cssClass: ''
+        }
+      });
+
+      const app4 = new Vue({
+        el: '#app-4',
+        data: {
+          clicks: 0
+        },
+        methods: {
+          increment() {
+            this.clicks++;
+          }
+        },
+        computed: {
+          counter() {
+            return this.clicks * 2;
+          }
+        }
+      });
+
+      const app5 = new Vue({
+        el: '#app-5',
+        data: {
+          show: true,
+          persons: [
+            { name: 'Gary', age: 37 },
+            { name: 'Philippa', age: 34 },
+            { name: 'Georgie', age: 1 },
+            { name: 'Maisie', age: 4 },
+          ]
+        }
+      });
+
+      Vue.filter('uppercase', function(value) {
+        return value.toUpperCase();
+      });
+
+      const app6 = new Vue({
+        el: '#app-6',
+        data: {
+          title: 'hello world!'
+        },
+        computed: {
+          theTitle: function() {
+            return this.title.toUpperCase();
+          }
+        },
+        filters: {
+          lowercase: function(value) {
+            return value.toLowerCase();
+          }
+        }
+      })
+    </script>
+  </body>
+</html>
